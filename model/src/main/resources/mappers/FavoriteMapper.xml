@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.hoh.model.mapper.FavoriteMapper" >
+  <resultMap id="BaseResultMap" type="com.example.hoh.model.entity.FavoriteKey" >
+    <id column="recipe_ID" property="recipeId" jdbcType="INTEGER" />
+    <id column="user_ID" property="userId" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="com.example.hoh.model.entity.FavoriteKey" >
+    delete from favorite
+    where recipe_ID = #{recipeId,jdbcType=INTEGER}
+      and user_ID = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.hoh.model.entity.FavoriteKey" >
+    insert into favorite (recipe_ID, user_ID)
+    values (#{recipeId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.hoh.model.entity.FavoriteKey" >
+    insert into favorite
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="recipeId != null" >
+        recipe_ID,
+      </if>
+      <if test="userId != null" >
+        user_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="recipeId != null" >
+        #{recipeId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>
