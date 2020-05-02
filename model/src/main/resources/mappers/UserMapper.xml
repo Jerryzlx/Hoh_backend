@@ -22,6 +22,14 @@
     from user
     where username = #{username}
   </select>
+
+  <select id="selectByUsernamePassword" resultMap="BaseResultMap" parameterType="String" >
+    select
+    <include refid="Base_Column_List" />
+    from user
+    where username = #{username} and password = #{password}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from user
     where user_ID = #{userId,jdbcType=INTEGER}

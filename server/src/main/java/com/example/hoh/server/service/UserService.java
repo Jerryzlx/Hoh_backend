@@ -30,4 +30,18 @@ public class UserService extends AbstractService{
         return null;
     }
 
+    public User signin(final String username, String password) throws Exception{
+        if (StringUtils.isNotBlank(username)) {
+            return userMapper.selectByUsernamePassword(username, password);
+        }
+        return null;
+    }
+
+    public int signup(User user) throws Exception{
+
+        return userMapper.insertSelective(user);
+    }
+
+
+
 }
