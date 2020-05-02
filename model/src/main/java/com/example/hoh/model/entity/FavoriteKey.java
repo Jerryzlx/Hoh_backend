@@ -5,6 +5,11 @@ public class FavoriteKey {
 
     private Integer userId;
 
+    public FavoriteKey(Integer recipeId, Integer userId) {
+        this.recipeId = recipeId;
+        this.userId = userId;
+    }
+
     public Integer getRecipeId() {
         return recipeId;
     }

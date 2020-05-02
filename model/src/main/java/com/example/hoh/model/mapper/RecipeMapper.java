@@ -18,6 +18,8 @@ public interface RecipeMapper {
 
     List<Recipe> selectByParamsMap(Map<String, Object> params);
 
+    List<Recipe> selectByFavorite(Integer user_id);
+
     int updateByPrimaryKeySelective(Recipe record);
 
     int updateByPrimaryKey(Recipe record);

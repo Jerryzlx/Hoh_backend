@@ -42,6 +42,17 @@
     ORDER BY calories DESC
   </select>
 
+  <select id="selectByFavorite" resultMap="BaseResultMap">
+    select
+    r.recipe_ID, r.recipe_title, r.calories, r.directions, r.ingredients
+    from recipe r, favorite f
+    where f.user_ID= #{user_id,jdbcType=INTEGER}
+    AND r.recipe_ID = f.recipe_ID
+    ORDER BY calories DESC
+  </select>
+
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from recipe
     where recipe_ID = #{recipeId,jdbcType=INTEGER}

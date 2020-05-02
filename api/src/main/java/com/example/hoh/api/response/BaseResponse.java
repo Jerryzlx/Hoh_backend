@@ -12,6 +12,7 @@ public class BaseResponse<T> {
     public BaseResponse(Integer code, String msg) {
         this.code = code;
         this.msg = msg;
+        data = null;
     }
 
     public BaseResponse(Integer code, String msg, T data) {
