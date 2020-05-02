@@ -14,6 +14,10 @@ public interface RecipeMapper {
 
     Recipe selectByPrimaryKey(Integer recipeId);
 
+    List<Recipe> selectByCalories(Integer calories);
+
+    List<Recipe> selectByParamsMap(Map<String, Object> params);
+
     int updateByPrimaryKeySelective(Recipe record);
 
     int updateByPrimaryKey(Recipe record);

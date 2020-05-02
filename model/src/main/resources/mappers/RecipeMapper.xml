@@ -18,6 +18,30 @@
     where recipe_ID = #{recipeId,jdbcType=INTEGER}
   </select>
 
+  <select id="selectByCalories" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from recipe
+    where calories = #{calories,jdbcType=INTEGER}
+  </select>
+  <select id="selectByParamsMap" resultMap="BaseResultMap">
+    select
+    DISTINCT r.recipe_ID, r.recipe_title, r.calories, r.directions, r.ingredients
+    from recipe r, recipe_category rc
+    where r.calories &lt;= #{calories,jdbcType=INTEGER}
+    AND r.recipe_ID = rc.recipe_ID
+    <if test="title != null" >
+      AND r.recipe_title LIKE CONCAT('%', #{title}, '%')
+    </if>
+    <if test="category != null" >
+      AND rc.category_ID IN
+      <foreach collection="category" item="id" index="index" open="(" close=")" separator=",">
+        #{id}
+      </foreach>
+    </if>
+    ORDER BY calories DESC
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from recipe
     where recipe_ID = #{recipeId,jdbcType=INTEGER}
