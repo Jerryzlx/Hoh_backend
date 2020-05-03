@@ -20,6 +20,8 @@ public interface RecipeMapper {
 
     List<Recipe> selectByFavorite(Integer user_id);
 
+    List<Recipe> selectByRandom();
+
     int updateByPrimaryKeySelective(Recipe record);
 
     int updateByPrimaryKey(Recipe record);

@@ -30,20 +30,15 @@ public class RecipeService extends AbstractService {
     }
 
     public List<Recipe> search(Map<String, Object> params) throws Exception{
-//        Map<String, Object> map = new HashMap<>();
-//        map.put("calories", calories);
-//        if (title != null && title.length() != 0) {
-//            map.put("title", title);
-//        }
-//        if (category != null && category.size() != 0) {
-//            map.put("category", category);
-//        }
-//        return recipeMapper.selectByParamsMap(map);
         return recipeMapper.selectByParamsMap(params);
     }
 
     public List<Recipe> getFavorite(Integer user_id) throws Exception{
         return recipeMapper.selectByFavorite(user_id);
+    }
+
+    public List<Recipe> getRandomRecipe() throws Exception{
+        return recipeMapper.selectByRandom();
     }
 
     public int addFavorite(FavoriteKey favoriteKey) throws Exception{

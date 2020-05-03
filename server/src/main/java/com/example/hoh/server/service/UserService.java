@@ -39,7 +39,8 @@ public class UserService extends AbstractService{
 
     public int signup(User user) throws Exception{
 
-        return userMapper.insertSelective(user);
+        userMapper.insertSelective(user);
+        return user.getUserId();
     }
 
 

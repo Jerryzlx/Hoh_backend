@@ -51,6 +51,14 @@
     ORDER BY calories DESC
   </select>
 
+  <select id="selectByRandom" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from recipe
+    ORDER BY RAND()
+    LIMIT 6
+  </select>
+
 
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >

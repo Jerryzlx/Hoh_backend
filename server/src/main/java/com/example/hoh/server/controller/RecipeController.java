@@ -63,6 +63,22 @@ public class RecipeController extends AbstractContoller {
         return response;
     }
 
+    @RequestMapping(value = "getRandomRecipe", method = RequestMethod.GET)
+    @ResponseBody
+    public BaseResponse getRandomRecipe() {
+        BaseResponse response = new BaseResponse(StatusCode.Success);
+        try {
+            response.setData(recipeService.getRandomRecipe());
+            log.error("RecipeController~ Recipe info - Exception: calories={}", response.getData());
+        }catch (Exception e) {
+            log.error("RecipeController~ Recipe getFavorite - Exception: " + e.getMessage());
+            response= new BaseResponse(StatusCode.Fail.getCode(), e.getMessage());
+        }
+        return response;
+    }
+
+
+
     @RequestMapping(value = "like", method = RequestMethod.POST)
     @ResponseBody
     public BaseResponse like(@RequestBody Map<String, Object> params ) {
