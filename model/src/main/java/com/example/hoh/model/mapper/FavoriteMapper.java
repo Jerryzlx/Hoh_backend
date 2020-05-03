@@ -7,5 +7,7 @@ public interface FavoriteMapper {
 
     int insert(FavoriteKey record);
 
+    FavoriteKey selectByPrimaryKey(FavoriteKey record);
+
     int insertSelective(FavoriteKey record);
 }

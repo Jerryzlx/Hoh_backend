@@ -36,7 +36,7 @@ public class RecipeController extends AbstractContoller {
         return response;
     }
 
-    @RequestMapping(value = "search", method = RequestMethod.GET)
+    @RequestMapping(value = "search", method = RequestMethod.POST)
     @ResponseBody
     public BaseResponse search(@RequestBody Map<String, Object> params ) {
         BaseResponse response = new BaseResponse(StatusCode.Success);
@@ -52,10 +52,10 @@ public class RecipeController extends AbstractContoller {
 
     @RequestMapping(value = "getFavorite", method = RequestMethod.GET)
     @ResponseBody
-    public BaseResponse getFavorite(@RequestParam Integer user_id ) {
+    public BaseResponse getFavorite(@RequestParam int userId ) {
         BaseResponse response = new BaseResponse(StatusCode.Success);
         try {
-            response.setData(recipeService.getFavorite(user_id));
+            response.setData(recipeService.getFavorite(userId));
         }catch (Exception e) {
             log.error("RecipeController~ Recipe getFavorite - Exception: " + e.getMessage());
             response= new BaseResponse(StatusCode.Fail.getCode(), e.getMessage());
@@ -63,9 +63,9 @@ public class RecipeController extends AbstractContoller {
         return response;
     }
 
-    @RequestMapping(value = "addFavorite", method = RequestMethod.POST)
+    @RequestMapping(value = "like", method = RequestMethod.POST)
     @ResponseBody
-    public BaseResponse getFavorite(@RequestBody Map<String, Object> params ) {
+    public BaseResponse like(@RequestBody Map<String, Object> params ) {
         Integer recipeId = (Integer) params.get("recipeId");
         Integer userId = (Integer) params.get("userId");
         if (userId == null) {
@@ -81,5 +81,45 @@ public class RecipeController extends AbstractContoller {
         }
         return response;
     }
+
+    @RequestMapping(value = "dislike", method = RequestMethod.POST)
+    @ResponseBody
+    public BaseResponse dislike(@RequestBody Map<String, Object> params ) {
+        Integer recipeId = (Integer) params.get("recipeId");
+        Integer userId = (Integer) params.get("userId");
+        if (userId == null) {
+            return new BaseResponse(StatusCode.InvalidParams);
+        }
+        FavoriteKey favoriteKey = new FavoriteKey(recipeId, userId);
+        BaseResponse response = new BaseResponse(StatusCode.Success);
+        try {
+            response.setData(recipeService.removeFavorite(favoriteKey));
+        }catch (Exception e) {
+            log.error("RecipeController~ Recipe addFavorite - Exception: " + e.getMessage());
+            response= new BaseResponse(StatusCode.Fail.getCode(), e.getMessage());
+        }
+        return response;
+    }
+
+    @RequestMapping(value = "isFavorite", method = RequestMethod.POST)
+    @ResponseBody
+    public BaseResponse isFavorite(@RequestBody Map<String, Object> params ) {
+        Integer recipeId = (Integer) params.get("recipeId");
+        Integer userId = (Integer) params.get("userId");
+        if (userId == null) {
+            return new BaseResponse(StatusCode.InvalidParams);
+        }
+        FavoriteKey favoriteKey = new FavoriteKey(recipeId, userId);
+        BaseResponse response = new BaseResponse(StatusCode.Success);
+        try {
+            response.setData(recipeService.isFavorite(favoriteKey));
+        }catch (Exception e) {
+            log.error("RecipeController~ Recipe addFavorite - Exception: " + e.getMessage());
+            response= new BaseResponse(StatusCode.Fail.getCode(), e.getMessage());
+        }
+        return response;
+    }
+
+
 
 }

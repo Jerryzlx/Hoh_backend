@@ -5,11 +5,23 @@
     <id column="recipe_ID" property="recipeId" jdbcType="INTEGER" />
     <id column="user_ID" property="userId" jdbcType="INTEGER" />
   </resultMap>
+  <sql id="Base_Column_List" >
+    user_ID, recipe_ID
+  </sql>
   <delete id="deleteByPrimaryKey" parameterType="com.example.hoh.model.entity.FavoriteKey" >
     delete from favorite
     where recipe_ID = #{recipeId,jdbcType=INTEGER}
       and user_ID = #{userId,jdbcType=INTEGER}
   </delete>
+
+  <select id="selectByPrimaryKey" parameterType="com.example.hoh.model.entity.FavoriteKey"
+          resultType="com.example.hoh.model.entity.FavoriteKey">
+    select
+    <include refid="Base_Column_List" />
+    from favorite
+    where user_ID = #{userId,jdbcType=INTEGER}
+    AND recipe_ID = #{recipeId, jdbcType=INTEGER}
+  </select>
   <insert id="insert" parameterType="com.example.hoh.model.entity.FavoriteKey" >
     insert into favorite (recipe_ID, user_ID)
     values (#{recipeId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER})

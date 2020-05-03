@@ -50,6 +50,15 @@ public class RecipeService extends AbstractService {
         return favoriteMapper.insert(favoriteKey);
     }
 
+    public int removeFavorite(FavoriteKey favoriteKey) throws Exception{
+        return favoriteMapper.deleteByPrimaryKey(favoriteKey);
+    }
+
+
+    public FavoriteKey isFavorite(FavoriteKey favoriteKey) throws Exception{
+        return favoriteMapper.selectByPrimaryKey(favoriteKey);
+    }
+
 
 
 
